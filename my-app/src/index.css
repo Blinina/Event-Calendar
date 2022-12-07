@@ -1,5 +1,22 @@
-.select{
-   background-color: aqua;
-    border-color: blue;
+.selectTD{
+    --bs-table-accent-bg: rgb(238, 225, 246)!important;
+    border-color: rgb(153, 0, 255);
     border-width: 2px;
 }
+.white{
+    --bs-table-accent-bg: white!important;
+}
+.header{
+    margin: 5%;
+    display: flex;
+    gap:30px;
+    justify-content: center;
+}
+select{
+    max-width: 150px;
+}
+.table{
+    width: 80%;
+    margin: auto;
+}
+
