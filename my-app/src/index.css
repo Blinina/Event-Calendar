@@ -1,7 +1,7 @@
 .selectTD{
     --bs-table-accent-bg: rgb(238, 225, 246)!important;
     border-color: rgb(153, 0, 255);
-    border-width: 2px;
+    border-width: 1px 0 0 0!important;
 }
 .white{
     --bs-table-accent-bg: white!important;
@@ -18,5 +18,14 @@ select{
 .table{
     width: 80%;
     margin: auto;
+}
+td{
+    position: relative;
+}
+img{
+    max-width: 15px;
+    position: absolute;
+    right: -0.2px;
+    cursor: pointer;
 }
 

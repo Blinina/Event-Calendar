@@ -1,10 +1,13 @@
-import { React, useState, useEffect  } from "react";
+import { React, useState, useEffect } from "react";
 import { Table, Form, Button } from 'react-bootstrap';
 import createCalendar from "../createCalendar";
+import { useNavigate } from "react-router-dom";
+import pen from "../img/editPen.png";
 
 export default function Main() {
-    const [yearCalendar, setYearCalendar] = useState(false);
-    const [monthCalendar, setMonthCalendar] = useState(true);
+    const navigate = useNavigate();
+    // const [yearCalendar, setYearCalendar] = useState(false);
+    // const [monthCalendar, setMonthCalendar] = useState(true);
 
     const [currentMonth, setCurrentMonth] = useState(new Date(Date.now()).getMonth());
     const [currentYear, setCurrentYear] = useState(new Date(Date.now()).getFullYear());
@@ -26,14 +29,12 @@ export default function Main() {
     const handleMonth = (e) => {
         setCurrentMonth(monthArr.indexOf(e.target.value))
     }
-    // const handleDefault = () => {
-      
-
+    // const handleDefault = () => {      
     // }
     // const handleYear = () => {
-        
+
     // };
-     const calendar = createCalendar( currentYear, currentMonth)
+    const calendar = createCalendar(currentYear, currentMonth)
 
     return (<div>
         <div className="header">
@@ -62,12 +63,28 @@ export default function Main() {
             <tbody>
                 {calendar.map((week, index) => (
                     <tr key={index}>
-                        {week.map((el, i) => el ? <td className={el.getDate()===currentDay ? 'selectTD' : 'white'} onClick={() => handleDay(el.getDate())} key={i}>{el.getDate()}</td> : <td key={i} />)}
+                        {week.map((el, i) => el
+                            ?
+                            <td
+                                className={el.getDate() === currentDay ? 'selectTD' : 'white'}
+                                onClick={() => handleDay(el.getDate())}
+                                key={i}>
+                                <>
+                                    {el.getDate()}
+                                    <img src={pen}
+                                        alt="edit"
+                                        onClick={() => navigate(`date/${el.getFullYear()}-${el.getMonth()}-${el.getDate()}`)}
+                                    />
+                                </>
+                            </td>
+                            :
+                            <td key={i}
+                            />)}
                     </tr>
                 ))}
             </tbody>
         </Table>
-        
+
     </div>
     )
 }
