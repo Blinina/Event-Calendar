@@ -1,19 +1,20 @@
-import { React, useState } from 'react';
-import Button from 'react-bootstrap/Button';
-import Form from 'react-bootstrap/Form';
-import Modal from 'react-bootstrap/Modal';
-import { useDispatch, useSelector } from 'react-redux';
-import { closeModal } from '../store/modalsSlice';
+import { React } from 'react';
+import { Button, Form, Modal } from 'react-bootstrap';
+import { useDispatch } from 'react-redux';
+import { closeModal } from '../../store/modalsSlice';
 import { useForm } from "react-hook-form";
-import { addTask } from '../store/tasksSlice';
+import { addTask } from '../../store/tasksSlice';
 import * as _ from 'lodash';
 
-export default function AddModal({ prop, param }) {
+export default function AddModal({ param }) {
     const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
 
     const onSubmit = data => {
-        dispatch(addTask({ day: param, id: _.uniqueId(1), ...data }));
+        const uniqID = param+data.taskName+_.uniqueId();
+        const newTask = { day: param, id: uniqID, ...data };
+        console.log(newTask)
+        dispatch(addTask(newTask));
         dispatch(closeModal());
     };
 

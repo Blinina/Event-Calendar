@@ -18,6 +18,9 @@ select{
 td{
     position: relative;
 }
+td:hover{
+    background-color: azure;
+}
 img{
     max-width: 15px;
     position: absolute;
@@ -40,4 +43,8 @@ td:has(.today) {
     width: 70%;
     margin: auto;
     margin-top: 100px;
+}
+.hasTask{
+margin-left: 5%!important;
+cursor: pointer;
 }

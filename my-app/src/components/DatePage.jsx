@@ -1,11 +1,13 @@
-import { useState, useEffect } from "react";
+// import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { Button, Card, Row, ListGroup } from "react-bootstrap"
+import { Button, Card, ListGroup } from "react-bootstrap"
 import { useParams, useNavigate } from 'react-router-dom';
-import AddModal from "./AddModal";
+import AddModal from "./modals/AddModal";
 import { showModal } from "../store/modalsSlice";
 import { getTasks } from "../store/tasksSlice";
 import { daysArr, monthArr } from '../helpers'
+import DeleteModal from "./modals/DeleteModal";
+import EditModal from './modals/EditModal';
 
 export default function DatePage() {
     const dispatch = useDispatch();
@@ -15,8 +17,7 @@ export default function DatePage() {
     const date = new Date(paramData);
     const { type } = useSelector((store) => store.modals);
     const taskArr = useSelector(getTasks);
-
-
+console.log(taskArr)
     return (
         <>
             <Card className="date-card">
@@ -30,16 +31,19 @@ export default function DatePage() {
                 <Card.Body>
                     <ListGroup>
                         {taskArr.map((el) => <>
-                        { el.day===paramData && (<ListGroup.Item>                          
+                        {el.day===paramData && (<ListGroup.Item key={el.id}>                          
                             {el.taskName}
-                            <Button>Edit</Button>
-                            <Button>Delite</Button>                            
+                            <Button onClick={() => dispatch(showModal({ type: 'editing', itemId: el.id}))}>Edit</Button>
+                            <Button variant="danger" onClick={() => dispatch(showModal({ type: 'deleting', itemId: el.id }))}>Delite</Button>
                         </ListGroup.Item>)}
                         </>)}
                     </ListGroup>
                 </Card.Body>
             </Card>
             {type === 'adding' && <AddModal prop={date} param={paramData}/>}
+            {type === 'deleting' && <DeleteModal/>}                            
+            {type === 'editing' && <EditModal/>}                            
+
         </>
     )
 }

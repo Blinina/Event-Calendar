@@ -1,24 +1,29 @@
-import { React, useState, useEffect } from "react";
-import { Table, Form, Button } from 'react-bootstrap';
+import { React, useState } from "react";
+import { Table, Form, Badge } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import pen from "../img/editPen.png";
+import { useDispatch, useSelector } from 'react-redux';
 import { daysArr, monthArr, yearsArr, createCalendar, getDefaultStartDay } from '../helpers';
+import { getTasks } from "../store/tasksSlice";
 
 export default function Main() {
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     const toDay = new Date(Date.now()).getDate();
     const [currentMonth, setCurrentMonth] = useState(new Date(Date.now()).getMonth());
     const [currentYear, setCurrentYear] = useState(new Date(Date.now()).getFullYear());
     const [currentDay, setCurrentDay] = useState(new Date(Date.now()).getDate());
-
-    const handleDay = (el) => {
-        setCurrentDay(el);
-    }
+    const allTasks = useSelector(getTasks);
+    console.log(allTasks);
     const handleYear = (e) => {
         setCurrentYear(e.target.value)
     }
     const handleMonth = (e) => {
         setCurrentMonth(monthArr.indexOf(e.target.value))
+    }
+    const fn = (el) => {
+        const filter = allTasks.filter((it) => getDefaultStartDay(el) === it.day);
+        return filter.length !== 0
     }
 
     const calendar = createCalendar(currentYear, currentMonth)
@@ -52,10 +57,20 @@ export default function Main() {
                             ?
                             <td
                                 className={el.getDate() === currentDay ? 'selectTD' : 'white'}
-                                onClick={() => handleDay(el.getDate())}
+                                onClick={() => setCurrentDay(el.getDate())}
                                 key={i}>
                                 <>
-                                    {toDay === el.getDate() ? <p className='today'>{el.getDate()}</p> : el.getDate()}
+                                    {toDay === el.getDate()
+                                        ?
+                                        <p className='today'>{el.getDate()}</p>
+                                        :
+                                        el.getDate()}
+                                    {fn(el) &&
+                                        <Badge bg="info"
+                                            className="hasTask"
+                                            onClick={() => navigate(`date/${getDefaultStartDay(el)}`)}>
+                                            Task
+                                        </Badge>}
                                     <img src={pen}
                                         alt="edit"
                                         onClick={() => navigate(`date/${getDefaultStartDay(el)}`)}

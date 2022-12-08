@@ -16,7 +16,7 @@ const persistConfig = {
 }
 const rootReducers = combineReducers({
   modals: modalReducers,
-    tasks: tasksReducers, 
+  tasks: tasksReducers, 
 })
 const persistedReducer = persistReducer(persistConfig, rootReducers)
 
