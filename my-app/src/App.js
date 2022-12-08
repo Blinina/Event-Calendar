@@ -4,7 +4,7 @@ import {
   Routes,
 } from "react-router-dom";
 import Main from './components/Main';
-import Date from './components/Date';
+import DatePage from './components/DatePage';
 
 function App() {
   return (
@@ -12,10 +12,10 @@ function App() {
     <BrowserRouter>
         <Routes>
           <Route path="/" element={<Main />} />
-          <Route path="/date" element={<Date />}>
-            <Route path=":id" element={<Date />} />
+          <Route path="/date" element={<DatePage />}>
+            <Route path=":id" element={<DatePage />} />
           </Route>
-          <Route path="*" element={<Date />} />
+          <Route path="*" element={<DatePage />} />
         </Routes>
     </BrowserRouter>
   </>

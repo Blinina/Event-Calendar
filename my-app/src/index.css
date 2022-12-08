@@ -1,8 +1,4 @@
-.selectTD{
-    --bs-table-accent-bg: rgb(238, 225, 246)!important;
-    border-color: rgb(153, 0, 255);
-    border-width: 1px 0 0 0!important;
-}
+
 .white{
     --bs-table-accent-bg: white!important;
 }
@@ -28,4 +24,20 @@ img{
     right: -0.2px;
     cursor: pointer;
 }
-
+.today{
+    margin: 0;
+    display: inline;
+}
+td:has(.today) {    
+    --bs-table-accent-bg: rgb(189, 249, 240)!important;
+}
+.selectTD{
+    --bs-table-accent-bg: rgb(238, 225, 246)!important;
+    border-color: rgb(153, 0, 255);
+    border-width: 2px 0 0 0!important;
+}
+.date-card{
+    width: 70%;
+    margin: auto;
+    margin-top: 100px;
+}

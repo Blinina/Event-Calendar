@@ -1,4 +1,4 @@
-export default function createCalendar(year, month) {
+export const createCalendar = (year, month) => {
     const result = [];
     let day = 1;
     const daysInWeek = 7;
@@ -18,3 +18,7 @@ export default function createCalendar(year, month) {
     }
     return result
 };
+export const daysArr = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+export const monthArr = ['January', 'February', 'March', 'April', 'May',
+    'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+export const yearsArr = [2020, 2021, 2022, 2023, 2024];
