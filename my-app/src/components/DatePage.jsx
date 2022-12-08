@@ -4,6 +4,7 @@ import { Button, Card, Row, ListGroup } from "react-bootstrap"
 import { useParams, useNavigate } from 'react-router-dom';
 import AddModal from "./AddModal";
 import { showModal } from "../store/modalsSlice";
+import { getTasks } from "../store/tasksSlice";
 import { daysArr, monthArr } from '../helpers'
 
 export default function DatePage() {
@@ -13,6 +14,8 @@ export default function DatePage() {
     const paramData = params.id;
     const date = new Date(paramData);
     const { type } = useSelector((store) => store.modals);
+    const taskArr = useSelector(getTasks);
+
 
     return (
         <>
@@ -26,15 +29,17 @@ export default function DatePage() {
                 <hr />
                 <Card.Body>
                     <ListGroup>
-                        {monthArr.map((el) => <ListGroup.Item><>{el}
+                        {taskArr.map((el) => <>
+                        { el.day===paramData && (<ListGroup.Item>                          
+                            {el.taskName}
                             <Button>Edit</Button>
-                            <Button>Delite</Button>
-                        </></ListGroup.Item>
-                        )}
+                            <Button>Delite</Button>                            
+                        </ListGroup.Item>)}
+                        </>)}
                     </ListGroup>
                 </Card.Body>
             </Card>
-            {type === 'adding' && <AddModal prop={date}/>}
+            {type === 'adding' && <AddModal prop={date} param={paramData}/>}
         </>
     )
 }

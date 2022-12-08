@@ -2,11 +2,10 @@ import { React, useState, useEffect } from "react";
 import { Table, Form, Button } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import pen from "../img/editPen.png";
-import {daysArr, monthArr, yearsArr, createCalendar} from '../helpers';
+import { daysArr, monthArr, yearsArr, createCalendar, getDefaultStartDay } from '../helpers';
 
 export default function Main() {
     const navigate = useNavigate();
-
     const toDay = new Date(Date.now()).getDate();
     const [currentMonth, setCurrentMonth] = useState(new Date(Date.now()).getMonth());
     const [currentYear, setCurrentYear] = useState(new Date(Date.now()).getFullYear());
@@ -23,7 +22,7 @@ export default function Main() {
     }
 
     const calendar = createCalendar(currentYear, currentMonth)
-
+    localStorage.setItem('root', 1);
     return (<div>
         <div className="header">
             <Form.Select
@@ -39,11 +38,11 @@ export default function Main() {
                 {yearsArr.map((el) => <option key={el} value={el}>{el}</option>)}
             </Form.Select>
         </div>
-        <h2> {currentDay} : {monthArr[currentMonth]} : {currentYear} </h2>
+        <h2>  {monthArr[currentMonth]} {currentDay}, {currentYear} </h2>
         <Table striped bordered hover className="table">
             <thead >
                 <tr>
-                    {daysArr.map((el) => <th key={el}>{el.slice(0,2)}</th>)}
+                    {daysArr.map((el) => <th key={el}>{el.slice(0, 2)}</th>)}
                 </tr>
             </thead>
             <tbody>
@@ -59,7 +58,7 @@ export default function Main() {
                                     {toDay === el.getDate() ? <p className='today'>{el.getDate()}</p> : el.getDate()}
                                     <img src={pen}
                                         alt="edit"
-                                        onClick={() => navigate(`date/${el.getFullYear()}-${el.getMonth() + 1}-${el.getDate()}`)}
+                                        onClick={() => navigate(`date/${getDefaultStartDay(el)}`)}
                                     />
                                 </>
                             </td>

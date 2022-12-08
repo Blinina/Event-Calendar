@@ -1,22 +1,22 @@
-import React, { useState } from 'react';
+import { React, useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 import Modal from 'react-bootstrap/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { closeModal } from '../store/modalsSlice';
 import { useForm } from "react-hook-form";
+import { addTask } from '../store/tasksSlice';
+import * as _ from 'lodash';
 
-export default function AddModal({prop}) {
+export default function AddModal({ prop, param }) {
     const dispatch = useDispatch();
     const { register, handleSubmit } = useForm();
+
     const onSubmit = data => {
-        console.log(data);
-    }
-    const getDefaultStartDay = () =>{
-        function setMonth() { return (prop.getMonth()+1) <10 ? `0${prop.getMonth()+1}` : (prop.getMonth()+1)} ;
-        function setDay() {return (prop.getDate()) <10 ? `0${prop.getDate()}` : (prop.getDate()) };
-        return `${prop.getFullYear()}-${setMonth()}-${setDay()}`;
-    }
+        dispatch(addTask({ day: param, id: _.uniqueId(1), ...data }));
+        dispatch(closeModal());
+    };
+
     return (
         <>
             <Modal centered show onHide={() => dispatch(closeModal())}>
@@ -31,22 +31,22 @@ export default function AddModal({prop}) {
                                 type="text"
                                 placeholder="task`s name"
                                 autoFocus
-                                {...register("firstName", { required: true, maxLength: 20 })}
+                                {...register("taskName", { required: true, maxLength: 20 })}
                             />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="input1">
                             <Form.Label>Task`s start</Form.Label>
                             <Form.Control
-                                type="date"
+                                type="time"
                                 placeholder="dateStart"
-                                defaultValue={getDefaultStartDay()}
+                                defaultValue='09:00:00'
                                 {...register("dateStart", { required: true })}
                             />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="exampleForm.ControlInput1">
                             <Form.Label>Task`s end</Form.Label>
                             <Form.Control
-                                type="date"
+                                type="time"
                                 {...register("dateEnd", { required: false })}
                             />
                         </Form.Group>

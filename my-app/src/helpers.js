@@ -22,3 +22,9 @@ export const daysArr = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 
 export const monthArr = ['January', 'February', 'March', 'April', 'May',
     'June', 'July', 'August', 'September', 'October', 'November', 'December'];
 export const yearsArr = [2020, 2021, 2022, 2023, 2024];
+
+export const getDefaultStartDay = (date) =>{
+    function setMonth() { return (date.getMonth()+1) <10 ? `0${date.getMonth()+1}` : (date.getMonth()+1)} ;
+    function setDay() {return (date.getDate()) <10 ? `0${date.getDate()}` : (date.getDate()) };
+    return `${date.getFullYear()}-${setMonth()}-${setDay()}`;
+}
