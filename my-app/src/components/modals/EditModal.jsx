@@ -1,31 +1,29 @@
-import { React, useEffect, useRef } from 'react';
+import { React } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { closeModal } from '../../store/modalsSlice';
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { renameTask, getTasks } from '../../store/tasksSlice';
-
+import { notifTime } from '../../helpers';
+import { useToastify } from '../../ToastifyContext';
 
 
 export default function EditModal() {
     const dispatch = useDispatch();
-    let inputRef = useRef();
+    const { successToast } = useToastify();
     const { register, handleSubmit } = useForm();
     const { item } = useSelector((store) => store.modals);
     const allTasks = useSelector(getTasks);
     const currentTask = allTasks.find((it) => it.id === item);
     console.log(currentTask);
 
-    //     useEffect(()=>{
-    // console.log(inputRef)
-    //     }, [inputRef]);
     const onSubmit = data => {
         console.log('kek')
-        const { id, day } = currentTask;
-        const newTask = { day, id, ...data };
-        console.log(newTask)
+        const { id } = currentTask;
         dispatch(renameTask({ id, ...data }));
         dispatch(closeModal());
+        successToast('Task changed');
+
     };
 
     return (
@@ -41,8 +39,7 @@ export default function EditModal() {
                             <Form.Control
                                 type="text"
                                 placeholder="task`s name"
-                                ref={inputRef}
-                                defaultValue={currentTask.taskName}
+                                defaultValue={currentTask.nameTask}
                                 {...register("taskName", { required: true, maxLength: 20 })}
                             />
                         </Form.Group>
@@ -62,6 +59,16 @@ export default function EditModal() {
                                 defaultValue={currentTask.dateEnd}
                                 {...register("dateEnd", { required: false })}
                             />
+                        </Form.Group>
+                        <Form.Group className="mb-3" controlId="notification">
+                            <Form.Label>Notification</Form.Label>
+                            <Form.Select
+                             name="notification"
+                             defaultValue={notifTime[0]}
+                             {...register("notification", { required: false, })}
+                            >
+                            {notifTime.map((el, i) => <option key={i} value={el}>{el}</option>)}
+                         </Form.Select>
                         </Form.Group>
                     </Form>
                 </Modal.Body>

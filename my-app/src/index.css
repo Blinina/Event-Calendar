@@ -17,10 +17,9 @@ select{
 }
 td{
     position: relative;
+    height: 120%!important;
 }
-td:hover{
-    background-color: azure;
-}
+
 img{
     max-width: 15px;
     position: absolute;
@@ -47,4 +46,46 @@ td:has(.today) {
 .hasTask{
 margin-left: 5%!important;
 cursor: pointer;
+}
+.task{
+    display: flex!important;
+    justify-content:  space-between;
+    align-items: center;
+}
+                                  
+.taskName{
+    font-weight: 600;
+    margin: 0;
+}
+.time{
+    margin: 0;
+    color: rgb(105, 103, 103);
+    font-size: 12px;
+}
+.btns{
+    display: flex;
+    gap: 2vw;
+    align-items: center;
+}
+.errorValid{
+    margin-top: 0.5vw;
+    margin-bottom: 0;
+    color:#dc3545;
+    font-size: 12px;
+}
+.card-title{
+    text-align: center;
+}
+.my-btn-group{
+display: flex;
+justify-content: flex-end;
+margin-right: 2vw;
+gap: 2vw;
+}
+.done{
+    background-color: rgb(219, 219, 219)!important;
+}
+.doneText{
+    text-decoration: line-through;
+
 }
