@@ -5,7 +5,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import AddModal from "./modals/AddModal";
 import { showModal } from "../store/modalsSlice";
 import { getTasks, doneTask } from "../store/tasksSlice";
-import { daysArr, monthArr, setFormatTime } from '../helpers'
+import { daysArr, monthArr, setFormatTime, notificationArr, deleteElem } from '../helpers'
 import DeleteModal from "./modals/DeleteModal";
 import EditModal from './modals/EditModal';
 import { useToastify } from "../ToastifyContext";
@@ -13,7 +13,7 @@ import { useToastify } from "../ToastifyContext";
 export default function DatePage() {
     const dispatch = useDispatch();
     const params = useParams();
-    const { successToast } = useToastify();
+    const { successToast, timeToast } = useToastify();
     const navigate = useNavigate();
     const paramData = params.id;
     const date = new Date(paramData);
@@ -26,6 +26,20 @@ export default function DatePage() {
             successToast('Task completed!');
         }
     };
+
+    const getNotificationTMDate = () => {
+        if (notificationArr.length === 0) {
+        }
+        notificationArr.forEach((el, i) => {
+            const nowDate = Math.round(Date.now() / 1000);
+            if (nowDate > el.time) {
+                timeToast(`У вас назначена задача "${el.task}" на ${el.timeStart}`)
+                deleteElem(i)
+            }
+        })
+    }
+    setInterval(getNotificationTMDate, 1000);
+
     return (
         <>
             <Card className="date-card">

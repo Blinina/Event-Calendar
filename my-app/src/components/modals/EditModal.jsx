@@ -4,9 +4,8 @@ import { closeModal } from '../../store/modalsSlice';
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { renameTask, getTasks } from '../../store/tasksSlice';
-import { notifTime } from '../../helpers';
+import { notifTimeKeys } from '../../helpers';
 import { useToastify } from '../../ToastifyContext';
-
 
 export default function EditModal() {
     const dispatch = useDispatch();
@@ -23,7 +22,6 @@ export default function EditModal() {
         dispatch(renameTask({ id, ...data }));
         dispatch(closeModal());
         successToast('Task changed');
-
     };
 
     return (
@@ -64,10 +62,10 @@ export default function EditModal() {
                             <Form.Label>Notification</Form.Label>
                             <Form.Select
                              name="notification"
-                             defaultValue={notifTime[0]}
+                             defaultValue={notifTimeKeys[0]}
                              {...register("notification", { required: false, })}
                             >
-                            {notifTime.map((el, i) => <option key={i} value={el}>{el}</option>)}
+                            {notifTimeKeys.map((el, i) => <option key={i} value={el}>{el}</option>)}
                          </Form.Select>
                         </Form.Group>
                     </Form>

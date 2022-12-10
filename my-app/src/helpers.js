@@ -29,12 +29,23 @@ export const setFormatTime = (time) => {
     const hour = time.slice(0, 2);
     return hour >= 12 ? `${hour - 12}:${time.slice(3, 5)} PM` : `${hour}:${time.slice(3, 5)} AM`;
 };
+export const deleteElem = (index) => {
+    notificationArr.splice(index, 1)
+}
 
 export const daysArr = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 export const monthArr = ['January', 'February', 'March', 'April', 'May',
     'June', 'July', 'August', 'September', 'October', 'November', 'December'];
-export const yearsArr = [2020, 2021, 2022, 2023, 2024];
+export const yearsArr = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
 export const timeStart = '09:00';
-export const notifTime = ['none', '1 minutes before', '30 minutes before', '1 hour before'];
+export const notifTimeObj={
+    'none': 0,
+    '1 minutes before': 60,
+    '5 minutes before': 300,
+    '1 hour before': 3600,
+};
+export const notifTimeKeys = Object.keys(notifTimeObj);
 
+
+export const notificationArr = [];
 

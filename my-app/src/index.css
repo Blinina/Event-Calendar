@@ -17,7 +17,7 @@ select{
 }
 td{
     position: relative;
-    height: 120%!important;
+   width: calc(100%/7);
 }
 
 img{
@@ -88,4 +88,24 @@ gap: 2vw;
 .doneText{
     text-decoration: line-through;
 
+}
+.table-responsive-sm{
+    max-width: calc(100%/3);
+    margin: 0;
+    outline: 2px;
+}
+.yearCalendar{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2vw;
+    justify-content: center;
+    align-items: flex-start;
+}
+caption {
+    
+    text-align: center!important;
+}
+table {
+    caption-side: top!important;
+    border-collapse: collapse;
 }

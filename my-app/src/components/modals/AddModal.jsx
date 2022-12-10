@@ -5,7 +5,7 @@ import { closeModal } from '../../store/modalsSlice';
 import { useForm } from "react-hook-form";
 import { addTask } from '../../store/tasksSlice';
 import * as _ from 'lodash';
-import { timeStart, notifTime } from '../../helpers';
+import { timeStart, notifTimeKeys, notifTimeObj, notificationArr } from '../../helpers';
 import { useToastify } from '../../ToastifyContext';
 
 export default function AddModal({ param }) {
@@ -17,23 +17,18 @@ export default function AddModal({ param }) {
         setFocus('nameTask')
     }, []);
 
-    const fn = (t)=>{
-        const pi = t.slice(0,2);
-        return pi<10 ? pi.slice(1,2) : pi;
-    }
-    const fnMin = (t) =>{
-        const pi = t.slice(3,5);
-        return pi<10 ? pi.slice(1,2) : pi;
-    }
-    
     const onSubmit = data => {
-        const uniqID = param + data.nameTask+_.uniqueId();
-        const newTask = { day: param, id: uniqID, done: false,  ...data };
+        const uniqID = param + _.uniqueId() + data.nameTask;
+        const newTask = { day: param, id: uniqID, done: false, ...data };
         dispatch(addTask(newTask));
         dispatch(closeModal());
         successToast('Task added');
+        if (data.notification !== 'none') {
+            const str = `${param}T${data.dateStart}:00`
+            const notifTime = Date.parse(str) / 1000 - notifTimeObj[data.notification];
+            notificationArr.push({ time: notifTime, task: data.nameTask, timeStart: data.dateStart })
+        }
     };
-     
 
     return (
         <>
@@ -50,12 +45,12 @@ export default function AddModal({ param }) {
                                 placeholder="task`s name"
                                 isInvalid={errors.nameTask}
                                 ref={0}
-                                {...register("nameTask", { required: true, minLength: 3 , maxLength: 20 , })}
+                                {...register("nameTask", { required: true, minLength: 3, maxLength: 20, })}
                             />
-                               {errors.nameTask && errors.nameTask.type === "required" && <span className="errorValid">This field is required</span>}
-                               {errors.nameTask && errors.nameTask.type === "minLength" && <span className="errorValid">This field must be greater than 3 characters</span>}
-                               {errors.nameTask && errors.nameTask.type === "maxLength" && <span className="errorValid">This field must be less than 20 characters</span>}
-                            
+                            {errors.nameTask && errors.nameTask.type === "required" && <span className="errorValid">This field is required</span>}
+                            {errors.nameTask && errors.nameTask.type === "minLength" && <span className="errorValid">This field must be greater than 3 characters</span>}
+                            {errors.nameTask && errors.nameTask.type === "maxLength" && <span className="errorValid">This field must be less than 20 characters</span>}
+
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="startTask">
                             <Form.Label>Task`s start</Form.Label>
@@ -82,12 +77,12 @@ export default function AddModal({ param }) {
                         <Form.Group className="mb-3" controlId="notification">
                             <Form.Label>Notification</Form.Label>
                             <Form.Select
-                             name="notification"
-                             defaultValue={notifTime[0]}
-                             {...register("notification", { required: false, })}
+                                name="notification"
+                                defaultValue={notifTimeKeys[0]}
+                                {...register("notification", { required: false, })}
                             >
-                            {notifTime.map((el, i) => <option key={i} value={el}>{el}</option>)}
-                         </Form.Select>
+                                {notifTimeKeys.map((el, i) => <option key={i} value={el}>{el}</option>)}
+                            </Form.Select>
                         </Form.Group>
                     </Form>
                 </Modal.Body>
@@ -104,3 +99,15 @@ export default function AddModal({ param }) {
     );
 }
 
+// const notifTime = new Date(param).setHours(fn(data.dateStart), fnMin(data.dateStart))
+// console.log(notifTime);
+//         const getNotificationTM = () => {
+//             if (data.notification !== 'none') {
+//                 const timeNow = Date.now();
+//                 if (timeNow > notifTime) {
+//                     timeToast(`У вас назначена задача "${data.nameTask}" на ${data.dateStart}`)
+//                     clearInterval(intervalID);
+//                 }
+//             }
+//         }
+//         const intervalID = setInterval(getNotificationTM, 1000);
