@@ -40,8 +40,9 @@ export const yearsArr = [2018, 2019, 2020, 2021, 2022, 2023, 2024];
 export const timeStart = '09:00';
 export const notifTimeObj={
     'none': 0,
-    '1 minutes before': 60,
+    '3 minutes before': 180,
     '5 minutes before': 300,
+    '30 minutes before': 1800,
     '1 hour before': 3600,
 };
 export const notifTimeKeys = Object.keys(notifTimeObj);

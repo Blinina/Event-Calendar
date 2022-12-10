@@ -3,13 +3,13 @@ import {
   Route,
   Routes,
 } from "react-router-dom";
-import Main from './components/Main';
-import DatePage from './components/DatePage';
+import Main from './components/mainPage/Main';
+import DatePage from './components/datePage/DatePage';
 import { ToastifyProvider } from "./ToastifyContext";
 
 function App() {
   return (
-    <>
+    <div className="app">
       <ToastifyProvider>
         <BrowserRouter>
           <Routes>
@@ -21,7 +21,7 @@ function App() {
           </Routes>
         </BrowserRouter>
       </ToastifyProvider>
-    </>
+    </div>
   );
 }
 

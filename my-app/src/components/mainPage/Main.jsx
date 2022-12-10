@@ -1,12 +1,12 @@
 import { React, useState } from "react";
-import { Table, Form, Badge, Button } from 'react-bootstrap';
+import { Table, Form, Badge, Button, Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
-import pen from "../img/e.png";
+import pen from "../../assets/images/editPen.png";
 import { useDispatch, useSelector } from 'react-redux';
-import { daysArr, monthArr, yearsArr, createCalendar, getDefaultStartDay, notificationArr, deleteElem } from '../helpers';
-import { getTasks } from "../store/tasksSlice";
+import { daysArr, monthArr, yearsArr, createCalendar, getDefaultStartDay, notificationArr, deleteElem } from '../../helpers';
+import { getTasks } from "../../store/tasksSlice";
 import YearCalendar from "./YearCalendar";
-import { useToastify } from "../ToastifyContext";
+import { useToastify } from "../../ToastifyContext";
 
 export default function Main() {
     const navigate = useNavigate();
@@ -57,7 +57,7 @@ export default function Main() {
         if (notificationArr.length === 0) {
         }
         notificationArr.forEach((el, i) => {
-            const nowDate = Date.now();
+            const nowDate = Math.round(Date.now() / 1000);
             if (el.time < nowDate) {
                 timeToast(`У вас назначена задача "${el.task}" на ${el.timeStart}`)
                 deleteElem(i)
@@ -68,7 +68,7 @@ export default function Main() {
 
     return (<div>
         <Button onClick={() => setShowYear(!showYear)} variant="outline-primary">{showYear ? 'Month' : 'Year'}</Button>
-        {showYear ? <YearCalendar year={currentYear} /> : <> <div className="header">
+        {showYear ? <YearCalendar year={currentYear} setCurrentMonth={setCurrentMonth} setShowYear={setShowYear}/> : <> <div className="header">
             <Button onClick={handlePrevMonth}>&lt;</Button>
             <Form.Select
                 name="monthSelect"
@@ -84,7 +84,9 @@ export default function Main() {
             </Form.Select>
             <Button onClick={handleNextMonth}>&gt;</Button>
         </div>
-            <h2>  {monthArr[currentMonth]} {currentDay}, {currentYear} </h2>
+        <Card>
+            <Card.Title className="main-card-title"> {monthArr[currentMonth]} {currentDay}, {currentYear} </Card.Title>
+        
             <Table striped bordered hover className="table" responsive>
                 <thead >
                     <tr>
@@ -98,7 +100,7 @@ export default function Main() {
                             {week.map((el, i) => el
                                 ?
                                 <td
-                                    className={el.getDate() === currentDay ? 'selectTD' : 'white'}
+                                    className={el.getDate() === currentDay ? 'selectTD monthTD' : 'white monthTD'}
                                     onClick={() => setCurrentDay(el.getDate())}
                                     key={i}>
                                     <>
@@ -125,7 +127,9 @@ export default function Main() {
                     ))}
                 </tbody>
             </Table>
-        </>}
+            </Card>
+        </>
+        }
     </div>
     )
 }

@@ -2,13 +2,13 @@ import { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card, ListGroup, Form } from "react-bootstrap"
 import { useParams, useNavigate } from 'react-router-dom';
-import AddModal from "./modals/AddModal";
-import { showModal } from "../store/modalsSlice";
-import { getTasks, doneTask } from "../store/tasksSlice";
-import { daysArr, monthArr, setFormatTime, notificationArr, deleteElem } from '../helpers'
-import DeleteModal from "./modals/DeleteModal";
-import EditModal from './modals/EditModal';
-import { useToastify } from "../ToastifyContext";
+import AddModal from "../modals/AddModal";
+import { showModal } from "../../store/modalsSlice";
+import { getTasks, doneTask } from "../../store/tasksSlice";
+import { daysArr, monthArr, setFormatTime, notificationArr, deleteElem } from '../../helpers'
+import DeleteModal from "../modals/DeleteModal";
+import EditModal from '../modals/EditModal';
+import { useToastify } from "../../ToastifyContext";
 
 export default function DatePage() {
     const dispatch = useDispatch();
@@ -32,8 +32,10 @@ export default function DatePage() {
         }
         notificationArr.forEach((el, i) => {
             const nowDate = Math.round(Date.now() / 1000);
+            console.log('kek')
+
             if (nowDate > el.time) {
-                timeToast(`У вас назначена задача "${el.task}" на ${el.timeStart}`)
+                timeToast(`You have the task  "${el.task}" at ${el.timeStart}`)
                 deleteElem(i)
             }
         })
@@ -43,14 +45,13 @@ export default function DatePage() {
     return (
         <>
             <Card className="date-card">
-                <Card.Title>{daysArr[date.getDay()]},{monthArr[date.getMonth()].slice(0, 3)} {date.getDate()},{date.getFullYear()}</Card.Title>
-                <hr />
+                <Card.Title  className="main-card-title">{daysArr[date.getDay()]}, {monthArr[date.getMonth()].slice(0, 3)} {date.getDate()}, {date.getFullYear()}</Card.Title>
+                <Card.Body>
                 <div className="my-btn-group">
-                    <Button onClick={() => navigate('/')}>Назад</Button>
+                    <Button onClick={() => navigate('/')}>Back</Button>
                     <Button onClick={() => dispatch(showModal({ type: 'adding' }))}>+ New Task</Button>
                 </div>
                 <hr />
-                <Card.Body>
                     <ListGroup>
                         {sortTasks.map((el) => <div key={el.id}>
                             {el.day === paramData && (<ListGroup.Item key={el.id} className={el.done ? 'done task' : 'task'}>
@@ -68,17 +69,19 @@ export default function DatePage() {
                                             onChange={() => handlerCheckbox(el)}
                                         />
                                     </Form>
-                                    <Button onClick={() => dispatch(showModal({ type: 'editing', itemId: el.id }))}>Edit</Button>
-                                    <Button variant="danger" onClick={() => dispatch(showModal({ type: 'deleting', itemId: el.id }))}>Delite</Button>
-                                </div>   </ListGroup.Item>)}
-                        </div>)}
+                                    <Button className="edit" onClick={() => dispatch(showModal({ type: 'editing', itemId: el.id }))}>&#9998;</Button>
+                                    <Button variant="danger" className="danger" onClick={() => dispatch(showModal({ type: 'deleting', itemId: el.id }))}>&#10008;</Button>
+                                </div>
+                            </ListGroup.Item>
+                            )}
+                        </div>
+                        )}
                     </ListGroup>
                 </Card.Body>
             </Card>
             {type === 'adding' && <AddModal prop={date} param={paramData} />}
             {type === 'deleting' && <DeleteModal />}
-            {type === 'editing' && <EditModal param={paramData}/>}
-
+            {type === 'editing' && <EditModal param={paramData} />}
         </>
     )
 }

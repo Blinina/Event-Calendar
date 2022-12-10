@@ -25,7 +25,7 @@ export default function DeleteModal() {
                 <Button variant="secondary" onClick={() => dispatch(closeModal())}>
                     Close
                 </Button>
-                <Button variant="danger" onClick={handleDelete}>
+                <Button variant="danger" className="danger-delite" onClick={handleDelete}>
                     Delete
                 </Button>
             </Modal.Footer>
