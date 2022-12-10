@@ -2,7 +2,7 @@ import { React, useState } from "react";
 import { Table, Form, Badge, Button, Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import pen from "../../assets/images/editPen.png";
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { daysArr, monthArr, yearsArr, createCalendar, getDefaultStartDay, notificationArr, deleteElem } from '../../helpers';
 import { getTasks } from "../../store/tasksSlice";
 import YearCalendar from "./YearCalendar";
@@ -10,9 +10,7 @@ import { useToastify } from "../../ToastifyContext";
 
 export default function Main() {
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const { timeToast } = useToastify();
-
     const [showYear, setShowYear] = useState(false);
     const toDayDay = new Date(Date.now());
     const today = `${toDayDay.getDate()}/${toDayDay.getMonth()}`;
@@ -63,12 +61,12 @@ export default function Main() {
                 deleteElem(i)
             }
         })
-    }
+    };
     setInterval(getNotificationTM, 1000);
 
     return (<div>
         <Button onClick={() => setShowYear(!showYear)} variant="outline-primary">{showYear ? 'Month' : 'Year'}</Button>
-        {showYear ? <YearCalendar year={currentYear} setCurrentMonth={setCurrentMonth} setShowYear={setShowYear}/> : <> <div className="header">
+        {showYear ? <YearCalendar year={currentYear} setCurrentMonth={setCurrentMonth} setShowYear={setShowYear} /> : <> <div className="header">
             <Button onClick={handlePrevMonth}>&lt;</Button>
             <Form.Select
                 name="monthSelect"
@@ -84,49 +82,49 @@ export default function Main() {
             </Form.Select>
             <Button onClick={handleNextMonth}>&gt;</Button>
         </div>
-        <Card>
-            <Card.Title className="main-card-title"> {monthArr[currentMonth]} {currentDay}, {currentYear} </Card.Title>
-        
-            <Table striped bordered hover className="table" responsive>
-                <thead >
-                    <tr>
-                        {daysArr.map((el) => <th key={el}>{el.slice(0, 2)}</th>)}
-                    </tr>
-                </thead>
-                <tbody>
-                    {calendar.map((week, index) => (
-                        <tr
-                            key={index}>
-                            {week.map((el, i) => el
-                                ?
-                                <td
-                                    className={el.getDate() === currentDay ? 'selectTD monthTD' : 'white monthTD'}
-                                    onClick={() => setCurrentDay(el.getDate())}
-                                    key={i}>
-                                    <>
-                                        {`${el.getDate()}/${el.getMonth()}` === today
-                                            ?
-                                            <p className='today'>{el.getDate()}</p>
-                                            :
-                                            el.getDate()}
-                                        {hasTask(el) &&
-                                            <Badge bg="info"
-                                                className="hasTask"
-                                                onClick={() => navigate(`date/${getDefaultStartDay(el)}`)}>T
-                                            </Badge>}
-                                        <img src={pen}
-                                            alt="edit"
-                                            onClick={() => navigate(`date/${getDefaultStartDay(el)}`)}
-                                        />
-                                    </>
-                                </td>
-                                :
-                                <td key={i}
-                                />)}
+            <Card>
+                <Card.Title className="main-card-title"> {monthArr[currentMonth]} {currentDay}, {currentYear} </Card.Title>
+
+                <Table striped bordered hover className="table" responsive>
+                    <thead >
+                        <tr>
+                            {daysArr.map((el) => <th key={el}>{el.slice(0, 2)}</th>)}
                         </tr>
-                    ))}
-                </tbody>
-            </Table>
+                    </thead>
+                    <tbody>
+                        {calendar.map((week, index) => (
+                            <tr
+                                key={index}>
+                                {week.map((el, i) => el
+                                    ?
+                                    <td
+                                        className={el.getDate() === currentDay ? 'selectTD monthTD' : 'white monthTD'}
+                                        onClick={() => setCurrentDay(el.getDate())}
+                                        key={i}>
+                                        <>
+                                            {`${el.getDate()}/${el.getMonth()}` === today
+                                                ?
+                                                <p className='today'>{el.getDate()}</p>
+                                                :
+                                                el.getDate()}
+                                            {hasTask(el) &&
+                                                <Badge bg="info"
+                                                    className="hasTask"
+                                                    onClick={() => navigate(`date/${getDefaultStartDay(el)}`)}>T
+                                                </Badge>}
+                                            <img src={pen}
+                                                alt="edit"
+                                                onClick={() => navigate(`date/${getDefaultStartDay(el)}`)}
+                                            />
+                                        </>
+                                    </td>
+                                    :
+                                    <td key={i}
+                                    />)}
+                            </tr>
+                        ))}
+                    </tbody>
+                </Table>
             </Card>
         </>
         }

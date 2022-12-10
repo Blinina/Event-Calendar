@@ -1,12 +1,11 @@
-import { daysArr, monthArr, yearsArr, createCalendar, getDefaultStartDay } from '../../helpers';
-import { Table, Form, Badge, Button } from 'react-bootstrap';
+import { daysArr, monthArr, createCalendar, getDefaultStartDay } from '../../helpers';
+import { Table } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 
 
 
 export default function YearCalendar({ year, setCurrentMonth, setShowYear }) {
     const navigate = useNavigate();
-
     const toDayDay = new Date(Date.now());
     const today = `${toDayDay.getDate()}/${toDayDay.getMonth()}`;
     const allMonth = monthArr.map((el, i) => createCalendar(year, i));

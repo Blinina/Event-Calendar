@@ -1,27 +1,26 @@
 import { React, useEffect } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { closeModal } from '../../store/modalsSlice';
 import { useForm } from "react-hook-form";
 import { addTask } from '../../store/tasksSlice';
 import * as _ from 'lodash';
 import { timeStart, notifTimeKeys, notifTimeObj, notificationArr } from '../../helpers';
 import { useToastify } from '../../ToastifyContext';
 
-export default function AddModal({ param }) {
+export default function AddModal({ param, setShowModal }) {
     const dispatch = useDispatch();
-    const { successToast, timeToast } = useToastify();
+    const { successToast } = useToastify();
 
     const { register, handleSubmit, setFocus, formState: { errors } } = useForm();
     useEffect(() => {
         setFocus('nameTask')
-    }, []);
+    }, [setFocus]);
 
     const onSubmit = data => {
         const uniqID = param + _.uniqueId() + data.nameTask;
         const newTask = { day: param, id: uniqID, done: false, ...data };
         dispatch(addTask(newTask));
-        dispatch(closeModal());
+        setShowModal({ type: null });
         successToast('Task added');
         if (data.notification !== 'none') {
             const str = `${param}T${data.dateStart}:00`
@@ -32,7 +31,7 @@ export default function AddModal({ param }) {
 
     return (
         <>
-            <Modal centered show onHide={() => dispatch(closeModal())}>
+            <Modal centered show onHide={() => setShowModal({ type: null })}>
                 <Modal.Header closeButton>
                     <Modal.Title>New task</Modal.Title>
                 </Modal.Header>
@@ -87,7 +86,7 @@ export default function AddModal({ param }) {
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={() => dispatch(closeModal())} variant="secondary" >
+                    <Button onClick={() => setShowModal({ type: null })} variant="secondary" >
                         Close
                     </Button>
                     <Button variant="primary" onClick={handleSubmit(onSubmit)}>
@@ -98,16 +97,3 @@ export default function AddModal({ param }) {
         </>
     );
 }
-
-// const notifTime = new Date(param).setHours(fn(data.dateStart), fnMin(data.dateStart))
-// console.log(notifTime);
-//         const getNotificationTM = () => {
-//             if (data.notification !== 'none') {
-//                 const timeNow = Date.now();
-//                 if (timeNow > notifTime) {
-//                     timeToast(`У вас назначена задача "${data.nameTask}" на ${data.dateStart}`)
-//                     clearInterval(intervalID);
-//                 }
-//             }
-//         }
-//         const intervalID = setInterval(getNotificationTM, 1000);

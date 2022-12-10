@@ -1,26 +1,24 @@
 import { React } from 'react';
 import { Button, Form, Modal } from 'react-bootstrap';
-import { closeModal } from '../../store/modalsSlice';
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { renameTask, getTasks } from '../../store/tasksSlice';
 import { notifTimeKeys, notificationArr, notifTimeObj } from '../../helpers';
 import { useToastify } from '../../ToastifyContext';
 
-export default function EditModal({ param }) {
+export default function EditModal({ param, setShowModal, showModal }) {
     const dispatch = useDispatch();
     const { successToast } = useToastify();
     const { register, handleSubmit } = useForm();
-    const { item } = useSelector((store) => store.modals);
+    const { itemId } = showModal;
+
     const allTasks = useSelector(getTasks);
-    const currentTask = allTasks.find((it) => it.id === item);
-    console.log(currentTask);
+    const currentTask = allTasks.find((it) => it.id === itemId);
 
     const onSubmit = data => {
-        console.log('kek')
         const { id } = currentTask;
         dispatch(renameTask({ id, ...data }));
-        dispatch(closeModal());
+        setShowModal({ type: null, itemId: null });
         successToast('Task changed');
         if (data.notification !== 'none') {
             const str = `${param}T${data.dateStart}:00`
@@ -31,7 +29,7 @@ export default function EditModal({ param }) {
 
     return (
         <>
-            <Modal centered show onHide={() => dispatch(closeModal())}>
+            <Modal centered show onHide={() => setShowModal({ type: null, itemId: null })}>
                 <Modal.Header closeButton>
                     <Modal.Title>Edit task</Modal.Title>
                 </Modal.Header>
@@ -43,7 +41,7 @@ export default function EditModal({ param }) {
                                 type="text"
                                 placeholder="task`s name"
                                 defaultValue={currentTask.nameTask}
-                                {...register("taskName", { required: true, maxLength: 20 })}
+                                {...register("nameTask", { required: true, maxLength: 20 })}
                             />
                         </Form.Group>
                         <Form.Group className="mb-3" controlId="start">
@@ -66,17 +64,17 @@ export default function EditModal({ param }) {
                         <Form.Group className="mb-3" controlId="notification">
                             <Form.Label>Notification</Form.Label>
                             <Form.Select
-                             name="notification"
-                             defaultValue={notifTimeKeys[0]}
-                             {...register("notification", { required: false, })}
+                                name="notification"
+                                defaultValue={notifTimeKeys[0]}
+                                {...register("notification", { required: false, })}
                             >
-                            {notifTimeKeys.map((el, i) => <option key={i} value={el}>{el}</option>)}
-                         </Form.Select>
+                                {notifTimeKeys.map((el, i) => <option key={i} value={el}>{el}</option>)}
+                            </Form.Select>
                         </Form.Group>
                     </Form>
                 </Modal.Body>
                 <Modal.Footer>
-                    <Button onClick={() => dispatch(closeModal())} variant="secondary" >
+                    <Button onClick={() => setShowModal({ type: null, itemId: null })} variant="secondary" >
                         Close
                     </Button>
                     <Button variant="primary" onClick={handleSubmit(onSubmit)}>

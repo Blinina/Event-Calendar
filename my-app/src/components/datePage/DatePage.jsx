@@ -1,23 +1,24 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import { Button, Card, ListGroup, Form } from "react-bootstrap"
 import { useParams, useNavigate } from 'react-router-dom';
-import AddModal from "../modals/AddModal";
-import { showModal } from "../../store/modalsSlice";
 import { getTasks, doneTask } from "../../store/tasksSlice";
 import { daysArr, monthArr, setFormatTime, notificationArr, deleteElem } from '../../helpers'
 import DeleteModal from "../modals/DeleteModal";
 import EditModal from '../modals/EditModal';
+import AddModal from "../modals/AddModal";
 import { useToastify } from "../../ToastifyContext";
 
 export default function DatePage() {
     const dispatch = useDispatch();
     const params = useParams();
+    const [showModal, setShowModal] = useState({ type: null, itemId: null })
+
+
     const { successToast, timeToast } = useToastify();
     const navigate = useNavigate();
     const paramData = params.id;
     const date = new Date(paramData);
-    const { type } = useSelector((store) => store.modals);
     const getTasksArr = useSelector(getTasks);
     const sortTasks = getTasksArr.sort((a, b) => a.dateStart.slice(0, 2) - b.dateStart.slice(0, 2));
     const handlerCheckbox = (el) => {
@@ -45,13 +46,13 @@ export default function DatePage() {
     return (
         <>
             <Card className="date-card">
-                <Card.Title  className="main-card-title">{daysArr[date.getDay()]}, {monthArr[date.getMonth()].slice(0, 3)} {date.getDate()}, {date.getFullYear()}</Card.Title>
+                <Card.Title className="main-card-title">{daysArr[date.getDay()]}, {monthArr[date.getMonth()].slice(0, 3)} {date.getDate()}, {date.getFullYear()}</Card.Title>
                 <Card.Body>
-                <div className="my-btn-group">
-                    <Button onClick={() => navigate('/')}>Back</Button>
-                    <Button onClick={() => dispatch(showModal({ type: 'adding' }))}>+ New Task</Button>
-                </div>
-                <hr />
+                    <div className="my-btn-group">
+                        <Button onClick={() => navigate('/')}>Back</Button>
+                        <Button onClick={() => setShowModal({ type: 'adding' })}>+ New Task</Button>
+                    </div>
+                    <hr />
                     <ListGroup>
                         {sortTasks.map((el) => <div key={el.id}>
                             {el.day === paramData && (<ListGroup.Item key={el.id} className={el.done ? 'done task' : 'task'}>
@@ -69,8 +70,8 @@ export default function DatePage() {
                                             onChange={() => handlerCheckbox(el)}
                                         />
                                     </Form>
-                                    <Button className="edit" onClick={() => dispatch(showModal({ type: 'editing', itemId: el.id }))}>&#9998;</Button>
-                                    <Button variant="danger" className="danger" onClick={() => dispatch(showModal({ type: 'deleting', itemId: el.id }))}>&#10008;</Button>
+                                    <Button className="edit" onClick={() => setShowModal({ type: 'editing', itemId: el.id })}>&#9998;</Button>
+                                    <Button variant="danger" className="danger" onClick={() => setShowModal({ type: 'deleting', itemId: el.id })}>&#10008;</Button>
                                 </div>
                             </ListGroup.Item>
                             )}
@@ -79,9 +80,9 @@ export default function DatePage() {
                     </ListGroup>
                 </Card.Body>
             </Card>
-            {type === 'adding' && <AddModal prop={date} param={paramData} />}
-            {type === 'deleting' && <DeleteModal />}
-            {type === 'editing' && <EditModal param={paramData} />}
+            {showModal.type === 'adding' && <AddModal param={paramData} setShowModal={setShowModal} />}
+            {showModal.type === 'deleting' && <DeleteModal setShowModal={setShowModal} showModal={showModal} />}
+            {showModal.type === 'editing' && <EditModal param={paramData} setShowModal={setShowModal} showModal={showModal} />}
         </>
     )
 }
