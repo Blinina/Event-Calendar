@@ -77,7 +77,7 @@ export default function DatePage() {
             </Card>
             {type === 'adding' && <AddModal prop={date} param={paramData} />}
             {type === 'deleting' && <DeleteModal />}
-            {type === 'editing' && <EditModal />}
+            {type === 'editing' && <EditModal param={paramData}/>}
 
         </>
     )

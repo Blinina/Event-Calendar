@@ -4,10 +4,10 @@ import { closeModal } from '../../store/modalsSlice';
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from 'react-redux';
 import { renameTask, getTasks } from '../../store/tasksSlice';
-import { notifTimeKeys } from '../../helpers';
+import { notifTimeKeys, notificationArr, notifTimeObj } from '../../helpers';
 import { useToastify } from '../../ToastifyContext';
 
-export default function EditModal() {
+export default function EditModal({ param }) {
     const dispatch = useDispatch();
     const { successToast } = useToastify();
     const { register, handleSubmit } = useForm();
@@ -22,6 +22,11 @@ export default function EditModal() {
         dispatch(renameTask({ id, ...data }));
         dispatch(closeModal());
         successToast('Task changed');
+        if (data.notification !== 'none') {
+            const str = `${param}T${data.dateStart}:00`
+            const notifTime = Date.parse(str) / 1000 - notifTimeObj[data.notification];
+            notificationArr.push({ time: notifTime, task: data.nameTask, timeStart: data.dateStart })
+        }
     };
 
     return (
