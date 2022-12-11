@@ -8,7 +8,7 @@ import DatePage from "./components/datePage/DatePage";
 import { ToastifyProvider } from "./ToastifyContext";
 
 function App() {
-  																				return (
+  return (
     <div className="app">
       <ToastifyProvider>
         <BrowserRouter>

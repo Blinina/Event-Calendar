@@ -1,6 +1,6 @@
 # Event-Calendar
 
-###Задание
+### Тестовое задание от газпромбанка повышенной сложности
 [**Test work**](https://github.com/GPB-COS/test-work-react/tree/master/test%203)
 Функционал:
 1. Пользователь имеет возможность создавать, редактировать, удалять мероприятия (в разных вкладках посредством роутинга), работать с календарем на месяц и с календарем на год;
@@ -11,4 +11,4 @@
 
 [**Посмотреть приложение**](https://my-app-mu-silk.vercel.app/)
 
-**Технологии**: React, Redux Toolkit, form-react-hooks, react-bootstrap. react-router-dom, react-toastify.
+**Технологии**: React, Redux Toolkit, form-react-hooks, react-bootstrap, react-router-dom, react-toastify.
