@@ -42,7 +42,7 @@ export default function DatePage() {
         })
     }
     setInterval(getNotificationTMDate, 1000);
-
+ 
     return (
         <>
             <Card className="date-card">

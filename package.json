@@ -1,0 +1,23 @@
+{
+  "name": "event-calendar",
+  "description": "[**Test work**](https://github.com/GPB-COS/test-work-react/tree/master/test%203)\r Функционал:\r 1. Пользователь имеет возможность создавать, редактировать, удалять мероприятия (в разных вкладках посредством роутинга);\r 2. Поля класса \"Мероприятие\": название, время начала, время окончания, за сколько напоминать о мероприятии;\r 3. Уведомлять об успешности события; **Уведомлять о начале мероприятия**;\r 4. Просматривать мероприятия на день;\r 5. Сохранять значения локально (**Использовала localStorage**);\r 6. Пользователь имеет возможность работать с календарем на месяц и с календарем года.",
+  "version": "1.0.0",
+  "main": "index.js",
+  "devDependencies": {},
+  "dependencies": {
+    "vercel": "^28.8.0"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Blinina/Event-Calendar.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Blinina/Event-Calendar/issues"
+  },
+  "homepage": "https://github.com/Blinina/Event-Calendar#readme"
+}

@@ -1,11 +1,13 @@
+export const getNextMonth = (year, month) => new Date(year, month + 1)
+export const getAmountDays = (year, month) => Math.round((getNextMonth(year, month) - new Date(year, month, 1)) / 1000 / 3600 / 24);
+
 export const createCalendar = (year, month) => {
     const result = [];
     let day = 1;
     const daysInWeek = 7;
     const date = new Date(year, month);
-    const nextMonth = new Date(year, month + 1);
     const monthStartsOn = date.getDay()
-    const amountDays = Math.round((nextMonth - new Date(year, month, 1)) / 1000 / 3600 / 24);
+    const amountDays = getAmountDays(year, month);
     for (let i = 0; i < (amountDays + monthStartsOn) / daysInWeek; i += 1) {
         result[i] = [];
         for (let j = 0; j < daysInWeek; j += 1) {

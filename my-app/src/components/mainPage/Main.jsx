@@ -3,7 +3,7 @@ import { Table, Form, Badge, Button, Card } from 'react-bootstrap';
 import { useNavigate } from "react-router-dom";
 import pen from "../../assets/images/editPen.png";
 import { useSelector } from 'react-redux';
-import { daysArr, monthArr, yearsArr, createCalendar, getDefaultStartDay, notificationArr, deleteElem } from '../../helpers';
+import { daysArr, monthArr, yearsArr, createCalendar, getDefaultStartDay, notificationArr, deleteElem, getAmountDays } from '../../helpers';
 import { getTasks } from "../../store/tasksSlice";
 import YearCalendar from "./YearCalendar";
 import { useToastify } from "../../ToastifyContext";
@@ -50,7 +50,7 @@ export default function Main() {
 
     const calendar = createCalendar(currentYear, currentMonth);
     localStorage.setItem('root', 1);
-
+    
     const getNotificationTM = () => {
         if (notificationArr.length === 0) {
         }
@@ -63,7 +63,16 @@ export default function Main() {
         })
     };
     setInterval(getNotificationTM, 1000);
-
+    
+    const getLastDay = () => {
+     const amountDays = getAmountDays(currentYear, currentMonth);
+     if(currentDay> amountDays){
+        setCurrentDay(amountDays);
+        return amountDays;
+     }else{
+        return currentDay;
+     }
+    };
     return (<div>
         <Button onClick={() => setShowYear(!showYear)} variant="outline-primary">{showYear ? 'Month' : 'Year'}</Button>
         {showYear ? <YearCalendar year={currentYear} setCurrentMonth={setCurrentMonth} setShowYear={setShowYear} /> : <> <div className="header">
@@ -83,7 +92,7 @@ export default function Main() {
             <Button onClick={handleNextMonth}>&gt;</Button>
         </div>
             <Card>
-                <Card.Title className="main-card-title"> {monthArr[currentMonth]} {currentDay}, {currentYear} </Card.Title>
+                <Card.Title className="main-card-title"> {monthArr[currentMonth]} {getLastDay()}, {currentYear} </Card.Title>
 
                 <Table striped bordered hover className="table" responsive>
                     <thead >
