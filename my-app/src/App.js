@@ -1,14 +1,14 @@
 import {
   BrowserRouter,
   Route,
-  Routes,
+  Routes
 } from "react-router-dom";
-import Main from './components/mainPage/Main';
-import DatePage from './components/datePage/DatePage';
+import Main from "./components/mainPage/Main";
+import DatePage from "./components/datePage/DatePage";
 import { ToastifyProvider } from "./ToastifyContext";
 
 function App() {
-  return (
+  																				return (
     <div className="app">
       <ToastifyProvider>
         <BrowserRouter>

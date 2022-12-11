@@ -32,7 +32,7 @@ export default function Main() {
     const handlePrevMonth = () => {
         console.log(currentMonth)
         if (currentMonth >= 1) {
-            setCurrentMonth(currentMonth - 1)
+            setCurrentMonth(currentMonth - 1);
         } else {
             setCurrentMonth(11);
             setCurrentYear(currentYear - 1);
@@ -58,7 +58,7 @@ export default function Main() {
             const nowDate = Math.round(Date.now() / 1000);
             if (el.time < nowDate) {
                 timeToast(`У вас назначена задача "${el.task}" на ${el.timeStart}`)
-                deleteElem(i)
+                deleteElem(i);
             }
         })
     };
@@ -107,7 +107,7 @@ export default function Main() {
                                 {week.map((el, i) => el
                                     ?
                                     <td
-                                        className={el.getDate() === currentDay ? 'selectTD monthTD' : 'white monthTD'}
+                                        className={el.getDate() === currentDay ? 'select-TD month-td' : 'white month-td'}
                                         onClick={() => setCurrentDay(el.getDate())}
                                         key={i}>
                                         <>
@@ -118,7 +118,7 @@ export default function Main() {
                                                 el.getDate()}
                                             {hasTask(el) &&
                                                 <Badge bg="info"
-                                                    className="hasTask"
+                                                    className="has-task"
                                                     onClick={() => navigate(`date/${getDefaultStartDay(el)}`)}>T
                                                 </Badge>}
                                             <img src={pen}
@@ -138,5 +138,5 @@ export default function Main() {
         </>
         }
     </div>
-    )
+    );
 }

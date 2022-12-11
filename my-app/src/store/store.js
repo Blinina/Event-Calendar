@@ -1,4 +1,4 @@
-import { configureStore, combineReducers } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from "@reduxjs/toolkit";
 import {
   persistStore, persistReducer,
   FLUSH,
@@ -7,27 +7,27 @@ import {
   PERSIST,
   PURGE,
   REGISTER
-} from 'redux-persist'
-import storage from 'redux-persist/lib/storage'
-import tasksReducers from './tasksSlice';
+} from "redux-persist";
+import storage from "redux-persist/lib/storage";
+import tasksReducers from "./tasksSlice";
 
 const persistConfig = {
-  key: 'root',
-  storage,
-}
+  key: "root",
+  storage
+};
 const rootReducers = combineReducers({
-  tasks: tasksReducers,
-})
-const persistedReducer = persistReducer(persistConfig, rootReducers)
+  tasks: tasksReducers
+});
+const persistedReducer = persistReducer(persistConfig, rootReducers);
 
 const store = configureStore({
   reducer: persistedReducer,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
       serializableCheck: {
-        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
-      },
-    }),
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+      }
+    })
 });
 export const persistor = persistStore(store);
 export default store;

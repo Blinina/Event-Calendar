@@ -1,0 +1,18 @@
+{
+    "extends": [
+         "stylelint-config-standard"
+    ],
+    "rules": {
+      "declaration-empty-line-before": null,
+      "at-rule-no-unknown": null,
+      "function-url-quotes": null,
+      "indentation": "tab",
+      "number-leading-zero": null,
+      "number-max-precision": [
+        4,
+        {
+          "severity": "warning"
+        }
+      ]
+    }
+  }

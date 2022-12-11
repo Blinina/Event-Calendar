@@ -1,277 +1,280 @@
 @font-face {
-    font-family: Roboto;
-    src: url(./assets/fonts/Roboto-Regular.ttf);
+	font-family: Roboto;
+	src: url(./assets/fonts/Roboto-Regular.ttf);
 }
 
 :root {
-    --main: #523ee8;
-    --main-top: #a977f2;
-    --main-bottom: #9b5dee;
-
-    --pink: #f73859;
-    --light-violet: #acb0ee;
-    --green: #25c9be;
+	--main: #523ee8;
+	--main-top: #a977f2;
+	--main-bottom: #9b5dee;
+	--pink: #f73859;
+	--light-violet: #acb0ee;
+	--green: #25c9be;
 }
 
 body {
-    font-family: Roboto, sans-serif !important;
+	font-family: Roboto, sans-serif !important;
 }
 
 p {
-    font-size: 14px;
+	font-size: 14px;
 }
 
-
-.tCenter {
-    text-align: center;
+.t-center {
+	text-align: center;
 }
 
 .white {
-    --bs-table-accent-bg: white !important;
+	--bs-table-accent-bg: white !important;
 }
 
 .header {
-    margin: 3%;
-    display: flex;
-    gap: 30px;
-    justify-content: center;
+	margin: 3%;
+	display: flex;
+	gap: 30px;
+	justify-content: center;
 }
 
 select {
-    max-width: 150px;
+	max-width: 150px;
 }
 
 .table {
-    width: 80%;
-    margin: auto;
+	width: 80%;
+	margin: auto;
 }
 
 td {
-    position: relative;
-    width: calc(100%/7);
-    color: rgb(66, 64, 64)!important;
+	position: relative;
+	width: calc(100%/7);
+	color: rgb(66 64 64) !important;
 }
 
 img {
-    max-width: 20px;
-    position: absolute;
-    top: 2px;
-    right: 0.5vw;
-    cursor: pointer;
-    border-radius: 50px;
+	max-width: 20px;
+	position: absolute;
+	top: 2px;
+	right: 0.5vw;
+	cursor: pointer;
+	border-radius: 50px;
 }
 
 .today {
-    margin: 0;
-    display: inline;
+	margin: 0;
+	display: inline;
 }
 
 td:has(.today) {
-    --bs-table-accent-bg:  #a9eee9 !important;
+	--bs-table-accent-bg: #a9eee9 !important;
 }
 
-.selectTD {
-    --bs-table-accent-bg: #e1c2f8 !important;
-    border-color: rgb(153, 0, 255);
-    border-width: 2px 0 0 0 !important;
+.select-td {
+	--bs-table-accent-bg: #e1c2f8 !important;
+	border-color: rgb(153 0 255);
+	border-width: 2px 0 0 !important;
 }
 
-.hasTask {
-    margin-left: 5% !important;
-    cursor: pointer;
+.has-task {
+	margin-left: 5% !important;
+	cursor: pointer;
 }
 
 .task {
-    display: flex !important;
-    justify-content: space-between;
-    align-items: center;
+	display: flex !important;
+	justify-content: space-between;
+	align-items: center;
 }
 
-.taskName {
-    font-weight: 600;
-    margin: 0;
+.task-name {
+	font-weight: 600;
+	margin: 0;
 }
 
 .time {
-    margin: 0;
-    color: rgb(105, 103, 103);
-    font-size: 12px;
+	margin: 0;
+	color: rgb(105 103 103);
+	font-size: 12px;
 }
 
 .btns {
-    display: flex;
-    gap: 2vw;
-    align-items: center;
+	display: flex;
+	gap: 2vw;
+	align-items: center;
 }
 
-.errorValid {
-    margin-top: 0.5vw;
-    margin-bottom: 0;
-    color: #dc3545;
-    font-size: 12px;
+.error-valid {
+	margin-top: 0.5vw;
+	margin-bottom: 0;
+	color: #dc3545;
+	font-size: 12px;
 }
 
 .card-title {
-    text-align: center;
+	text-align: center;
 }
 
 .my-btn-group {
-    display: flex;
-    justify-content: flex-end;
-    gap: 2vw;
+	display: flex;
+	justify-content: flex-end;
+	gap: 2vw;
 }
 
 .done {
-    background-color: rgb(220, 241, 234) !important;
+	background-color: rgb(220 241 234) !important;
 }
 
-.doneText {
-    text-decoration: line-through;
-
+.done-text {
+	text-decoration: line-through;
 }
 
 .table-responsive-sm {
-    margin: 0;
-    outline: 2px;
+	margin: 0;
+	outline: 2px;
 }
 
-.yearCalendar {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 2vw;
-    justify-content: center;
-    align-items: flex-start;
-    margin-top: 7%;
+.year-calendar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 2vw;
+	justify-content: center;
+	align-items: flex-start;
+	margin-top: 7%;
 }
 
 caption {
-    cursor: pointer;
-    text-align: center !important;
-    color: #8247e1!important;
-    font-weight: 600;
+	cursor: pointer;
+	text-align: center !important;
+	color: #8247e1 !important;
+	font-weight: 600;
 }
 
 table {
-    caption-side: top !important;
-    border-collapse: collapse;
+	caption-side: top !important;
+	border-collapse: collapse;
 }
 
-.yearSize {
-    cursor: pointer !important;
+.year-size {
+	cursor: pointer !important;
 }
 
-.yearSize:hover {
-    --bs-table-accent-bg: rgb(238, 225, 246) !important;
+.year-size:hover {
+	--bs-table-accent-bg: rgb(238 225 246) !important;
 }
 
 .card {
-    border-radius: 13px 13px 0 0 !important;
-
+	border-radius: 13px 13px 0 0 !important;
 }
 
 .main-card-title {
-    background: linear-gradient(180deg, rgb(169, 119, 242) 33%, rgb(155, 95, 239) 65%);
-    padding: 1.5vw;
-    margin-bottom: 0;
-    border-radius: 13px 13px 0 0;
-    color: white;
-    font-weight: 500;
-    text-align: center;
-    vertical-align: center;
+	background: linear-gradient(180deg, rgb(169 119 242) 33%, rgb(155 95 239) 65%);
+	padding: 1.5vw;
+	margin-bottom: 0;
+	border-radius: 13px 13px 0 0;
+	color: white;
+	font-weight: 500;
+	text-align: center;
+	vertical-align: center;
 }
 
 .btn-primary {
-    background: var(--main-top) !important;
-    border-color: var(--light-violet) !important;
+	background: var(--main-top) !important;
+	border-color: var(--light-violet) !important;
 }
 
 .btn-primary:hover {
-    transform: scale(1.1);
-    
+	transform: scale(1.1);
 }
 
 .btn-outline-primary {
-    position: absolute;
-    border-color: var(--pink) !important;
-    box-shadow: var(--pink) 0px 1px 2px;
-    color: var(--main) !important;
-    padding: 1%;
-    background-color: white  !important;
-    --bs-btn-hover-color: var(--main)  !important;
-    --bs-btn-hover-bg: #fff  !important;
-    --bs-btn-hover-border-color: var(--main) !important;
-    --bs-btn-focus-shadow-rgb: 13, 110, 253;
-    --bs-btn-disabled-border-color: #c50dfd;
-    --bs-gradient: none;
+	position: absolute;
+	border-color: var(--pink) !important;
+	box-shadow: var(--pink) 0 1px 2px;
+	color: var(--main) !important;
+	padding: 1%;
+	background-color: white !important;
+
+	--bs-btn-hover-color: var(--main) !important;
+	--bs-btn-hover-bg: #fff !important;
+	--bs-btn-hover-border-color: var(--main) !important;
+	--bs-btn-focus-shadow-rgb: 13, 110, 253;
+	--bs-btn-disabled-border-color: #c50dfd;
+	--bs-gradient: none;
 }
 
 .btn-outline-primary:active {
-    border-color: var(--pink) !important;
-    color: var(--main) !important;
-    background-color: white !important;
-    transform: scale(1.05);
-    ;
-
-
+	border-color: var(--pink) !important;
+	color: var(--main) !important;
+	background-color: white !important;
+	transform: scale(1.05);
 }
 
 .form-select {
-    color: var(--main) !important;
-    font-weight: 600;
+	color: var(--main) !important;
+	font-weight: 600;
 }
 
 thead {
-    color: rgb(108, 108, 108) !important;
+	color: rgb(108 108 108) !important;
 }
-.monthTD:hover{
-    --bs-table-accent-bg: rgb(238, 225, 246) !important;
 
+.monthn-td:hover {
+	--bs-table-accent-bg: rgb(238 225 246) !important;
 }
-.danger{
-    border-radius: 30px!important;
-    background-color: var(--pink)!important;
+
+.danger {
+	border-radius: 30px !important;
+	background-color: var(--pink) !important;
 }
+
 .danger:hover {
-    transform: scale(1.1);
-    
+	transform: scale(1.1);
 }
 
-.edit{
-    background-color: #8247e1!important;
+.edit {
+	background-color: #8247e1 !important;
 }
-hr{
-    margin: 1.6vw!important;
+
+hr {
+	margin: 1.6vw !important;
 }
-.danger-delite{
-    background-color: var(--pink)!important;
+
+.danger-delite {
+	background-color: var(--pink) !important;
 }
-.form-check-input[type=checkbox]:checked{
-    background-color: var(--green);
-    border-color:  var(--green);
+
+.form-check-input[type="checkbox"]:checked {
+	background-color: var(--green);
+	border-color: var(--green);
 }
-@media screen and (min-width: 650px){
-    .app {
-        width: 60%;
-        margin: 60px auto auto;
-    }    
+
+@media screen and (min-width: 650px) {
+	.app {
+		width: 60%;
+		margin: 60px auto auto;
+	}
 }
-@media screen and (max-width: 650px){
-    .app {
-        width: 95%;
-        margin: 20px auto auto;
-    }    
-    img {
-        max-width: 4.5vw;
+
+@media screen and (max-width: 650px) {
+	.app {
+		width: 95%;
+		margin: 20px auto auto;
+	}
+
+	img {
+		max-width: 4.5vw;
+	}
+
+	.date-card {
+		margin-top: 10px;
+	}
+
+	.btns > .btn {
+		padding: 1vw 2.3vw;
+	}
 }
-.date-card{
-    margin-top: 10px;
-}
-.btns >.btn{
-    padding: 1vw 2.3vw;
-}
-}
-@media screen and (max-width: 450px){
-    .table-responsive-sm{
-        width: 85%!important;
-    }
+
+@media screen and (max-width: 450px) {
+	.table-responsive-sm {
+		width: 85% !important;
+	}
 }

@@ -30,70 +30,68 @@ export default function AddModal({ param, setShowModal }) {
     };
 
     return (
-        <>
-            <Modal centered show onHide={() => setShowModal({ type: null })}>
-                <Modal.Header closeButton>
-                    <Modal.Title>New task</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    <Form onSubmit={handleSubmit(onSubmit)}>
-                        <Form.Group className="mb-3" controlId="nameTask">
-                            <Form.Label> name</Form.Label>
-                            <Form.Control
-                                type="text"
-                                placeholder="task`s name"
-                                isInvalid={errors.nameTask}
-                                ref={0}
-                                {...register("nameTask", { required: true, minLength: 3, maxLength: 20, })}
-                            />
-                            {errors.nameTask && errors.nameTask.type === "required" && <span className="errorValid">This field is required</span>}
-                            {errors.nameTask && errors.nameTask.type === "minLength" && <span className="errorValid">This field must be greater than 3 characters</span>}
-                            {errors.nameTask && errors.nameTask.type === "maxLength" && <span className="errorValid">This field must be less than 20 characters</span>}
+        <Modal centered show onHide={() => setShowModal({ type: null })}>
+            <Modal.Header closeButton>
+                <Modal.Title>New task</Modal.Title>
+            </Modal.Header>
+            <Modal.Body>
+                <Form onSubmit={handleSubmit(onSubmit)}>
+                    <Form.Group className="mb-3" controlId="nameTask">
+                        <Form.Label> name</Form.Label>
+                        <Form.Control
+                            type="text"
+                            placeholder="task`s name"
+                            isInvalid={errors.nameTask}
+                            ref={0}
+                            {...register("nameTask", { required: true, minLength: 3, maxLength: 20, })}
+                        />
+                        {errors.nameTask && errors.nameTask.type === "required" && <span className="error-valid">This field is required</span>}
+                        {errors.nameTask && errors.nameTask.type === "minLength" && <span className="error-valid">This field must be greater than 3 characters</span>}
+                        {errors.nameTask && errors.nameTask.type === "maxLength" && <span className="error-valid">This field must be less than 20 characters</span>}
 
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="startTask">
-                            <Form.Label>Task`s start</Form.Label>
-                            <Form.Control
-                                type="time"
-                                placeholder="dateStart"
-                                defaultValue={timeStart}
-                                {...register("dateStart", { required: true })}
-                            />
-                            {errors.dateStart && (
-                                <p className="errorValid">
-                                    This field is required
-                                </p>
-                            )}
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="startEnd">
-                            <Form.Label>Task`s end</Form.Label>
-                            <Form.Control
-                                type="time"
-                                defaultValue={'startTask'}
-                                {...register("dateEnd", { required: false, })}
-                            />
-                        </Form.Group>
-                        <Form.Group className="mb-3" controlId="notification">
-                            <Form.Label>Notification</Form.Label>
-                            <Form.Select
-                                name="notification"
-                                defaultValue={notifTimeKeys[0]}
-                                {...register("notification", { required: false, })}
-                            >
-                                {notifTimeKeys.map((el, i) => <option key={i} value={el}>{el}</option>)}
-                            </Form.Select>
-                        </Form.Group>
-                    </Form>
-                </Modal.Body>
-                <Modal.Footer>
-                    <Button onClick={() => setShowModal({ type: null })} variant="secondary" >
-                        Close
-                    </Button>
-                    <Button variant="primary" onClick={handleSubmit(onSubmit)}>
-                        Save Changes
-                    </Button>
-                </Modal.Footer>
-            </Modal>
-        </>
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="startTask">
+                        <Form.Label>Task`s start</Form.Label>
+                        <Form.Control
+                            type="time"
+                            placeholder="dateStart"
+                            defaultValue={timeStart}
+                            {...register("dateStart", { required: true })}
+                        />
+                        {errors.dateStart && (
+                            <p className="error-valid">
+                                This field is required
+                            </p>
+                        )}
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="startEnd">
+                        <Form.Label>Task`s end</Form.Label>
+                        <Form.Control
+                            type="time"
+                            defaultValue={'startTask'}
+                            {...register("dateEnd", { required: false, })}
+                        />
+                    </Form.Group>
+                    <Form.Group className="mb-3" controlId="notification">
+                        <Form.Label>Notification</Form.Label>
+                        <Form.Select
+                            name="notification"
+                            defaultValue={notifTimeKeys[0]}
+                            {...register("notification", { required: false, })}
+                        >
+                            {notifTimeKeys.map((el, i) => <option key={i} value={el}>{el}</option>)}
+                        </Form.Select>
+                    </Form.Group>
+                </Form>
+            </Modal.Body>
+            <Modal.Footer>
+                <Button onClick={() => setShowModal({ type: null })} variant="secondary" >
+                    Close
+                </Button>
+                <Button variant="primary" onClick={handleSubmit(onSubmit)}>
+                    Save Changes
+                </Button>
+            </Modal.Footer>
+        </Modal>
     );
 }
