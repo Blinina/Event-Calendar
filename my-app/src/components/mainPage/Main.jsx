@@ -50,7 +50,7 @@ export default function Main() {
 
     const calendar = createCalendar(currentYear, currentMonth);
     localStorage.setItem('root', 1);
-    
+
     const getNotificationTM = () => {
         if (notificationArr.length === 0) {
         }
@@ -63,79 +63,85 @@ export default function Main() {
         })
     };
     setInterval(getNotificationTM, 1000);
-    
+
     const getLastDay = () => {
-     const amountDays = getAmountDays(currentYear, currentMonth);
-     if(currentDay> amountDays){
-        setCurrentDay(amountDays);
-        return amountDays;
-     }else{
-        return currentDay;
-     }
+        const amountDays = getAmountDays(currentYear, currentMonth);
+        if (currentDay > amountDays) {
+            setCurrentDay(amountDays);
+            return amountDays;
+        } else {
+            return currentDay;
+        }
     };
     return (<div>
         <Button onClick={() => setShowYear(!showYear)} variant="outline-primary">{showYear ? 'Month' : 'Year'}</Button>
-        {showYear ? <YearCalendar year={currentYear} setCurrentMonth={setCurrentMonth} setShowYear={setShowYear} /> : <> <div className="header">
-            <Button onClick={handlePrevMonth}>&lt;</Button>
-            <Form.Select
-                name="monthSelect"
-                value={monthArr[currentMonth]}
-                onChange={handleMonth}>
-                {monthArr.map((el) => <option key={el} value={el}>{el}</option>)}
-            </Form.Select>
-            <Form.Select
-                name="yearSelect"
-                value={currentYear}
-                onChange={(e) => handleYear(e)} >
-                {yearsArr.map((el) => <option key={el} value={el}>{el}</option>)}
-            </Form.Select>
-            <Button onClick={handleNextMonth}>&gt;</Button>
-        </div>
-            <Card>
-                <Card.Title className="main-card-title"> {monthArr[currentMonth]} {getLastDay()}, {currentYear} </Card.Title>
+        {showYear
+            ?
+            <YearCalendar year={currentYear}
+                setCurrentMonth={setCurrentMonth}
+                setShowYear={setShowYear} />
+            : <>
+                <div className="header">
+                    <Button onClick={handlePrevMonth}>&lt;</Button>
+                    <Form.Select
+                        name="monthSelect"
+                        value={monthArr[currentMonth]}
+                        onChange={handleMonth}>
+                        {monthArr.map((el) => <option key={el} value={el}>{el}</option>)}
+                    </Form.Select>
+                    <Form.Select
+                        name="yearSelect"
+                        value={currentYear}
+                        onChange={(e) => handleYear(e)} >
+                        {yearsArr.map((el) => <option key={el} value={el}>{el}</option>)}
+                    </Form.Select>
+                    <Button onClick={handleNextMonth}>&gt;</Button>
+                </div>
+                <Card>
+                    <Card.Title className="main-card-title"> {monthArr[currentMonth]} {getLastDay()}, {currentYear} </Card.Title>
 
-                <Table striped bordered hover className="table" responsive>
-                    <thead >
-                        <tr>
-                            {daysArr.map((el) => <th key={el}>{el.slice(0, 2)}</th>)}
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {calendar.map((week, index) => (
-                            <tr
-                                key={index}>
-                                {week.map((el, i) => el
-                                    ?
-                                    <td
-                                        className={el.getDate() === currentDay ? 'select-TD month-td' : 'white month-td'}
-                                        onClick={() => setCurrentDay(el.getDate())}
-                                        key={i}>
-                                        <>
-                                            {`${el.getDate()}/${el.getMonth()}` === today
-                                                ?
-                                                <p className='today'>{el.getDate()}</p>
-                                                :
-                                                el.getDate()}
-                                            {hasTask(el) &&
-                                                <Badge bg="info"
-                                                    className="has-task"
-                                                    onClick={() => navigate(`date/${getDefaultStartDay(el)}`)}>T
-                                                </Badge>}
-                                            <img src={pen}
-                                                alt="edit"
-                                                onClick={() => navigate(`date/${getDefaultStartDay(el)}`)}
-                                            />
-                                        </>
-                                    </td>
-                                    :
-                                    <td key={i}
-                                    />)}
+                    <Table striped bordered hover className="table" responsive>
+                        <thead >
+                            <tr>
+                                {daysArr.map((el) => <th key={el}>{el.slice(0, 2)}</th>)}
                             </tr>
-                        ))}
-                    </tbody>
-                </Table>
-            </Card>
-        </>
+                        </thead>
+                        <tbody>
+                            {calendar.map((week, index) => (
+                                <tr
+                                    key={index}>
+                                    {week.map((el, i) => el
+                                        ?
+                                        <td
+                                            className={el.getDate() === currentDay ? 'select-TD month-td' : 'white month-td'}
+                                            onClick={() => setCurrentDay(el.getDate())}
+                                            key={i}>
+                                            <>
+                                                {`${el.getDate()}/${el.getMonth()}` === today
+                                                    ?
+                                                    <p className='today'>{el.getDate()}</p>
+                                                    :
+                                                    el.getDate()}
+                                                {hasTask(el) &&
+                                                    <Badge bg="info"
+                                                        className="has-task"
+                                                        onClick={() => navigate(`date/${getDefaultStartDay(el)}`)}>T
+                                                    </Badge>}
+                                                <img src={pen}
+                                                    alt="edit"
+                                                    onClick={() => navigate(`date/${getDefaultStartDay(el)}`)}
+                                                />
+                                            </>
+                                        </td>
+                                        :
+                                        <td key={i} />
+                                    )}
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
+                </Card>
+            </>
         }
     </div>
     );

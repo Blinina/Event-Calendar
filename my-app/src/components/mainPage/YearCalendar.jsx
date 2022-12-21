@@ -44,8 +44,7 @@ export default function YearCalendar({ year, setCurrentMonth, setShowYear }) {
                                             />)}
                                     </tr>
                                 </>
-                            ))
-                            }
+                            ))}
                         </tbody>
                     </Table>
                 </>)}
